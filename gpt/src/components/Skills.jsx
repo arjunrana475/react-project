@@ -36,7 +36,6 @@ export default function Skills() {
       <div className="min-h-screen bg-gray-100 flex justify-center py-10 px-4">
           <div className="w-full max-w-xl">
 
-              {/* Header */}
               <div className="mb-6">
                   <h1 className="text-3xl font-bold text-gray-800">
                       My Skills
@@ -46,7 +45,6 @@ export default function Skills() {
                   </p>
               </div>
 
-              {/* Skills Card */}
               <div className="bg-white rounded-xl shadow-md p-6">
 
                   <ul className="space-y-3">
@@ -81,7 +79,6 @@ export default function Skills() {
                                   </div>
                               </div>
 
-                              {/* Edit Section */}
                               {editId === index && (
                                   <div className="mt-4 flex flex-col sm:flex-row gap-2">
 
@@ -105,7 +102,6 @@ export default function Skills() {
                       ))}
                   </ul>
 
-                  {/* Add Skill */}
                   <button
                       className="w-full mt-5 py-3 rounded-lg bg-gray-800 text-white font-medium hover:bg-gray-900 transition"
                       onClick={addSkill}

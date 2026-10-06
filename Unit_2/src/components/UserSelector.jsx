@@ -1,60 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from "react";
+import useFetch from '../hooks/useFetch';
 
 export default function UserSelector() {
     const [userId, setUserId] = useState(1);
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+    const url = `https://jsonplaceholder.typicode.com/users/${userId}`;
+    const { data, loading, error } = useFetch(url);
     
-    useEffect(() => {
-        const controller = new AbortController();
-        async function fetchUser() {
-            try {
-                setLoading(true);
-
-                const response = await fetch(url, {
-                    signal: controller.signal
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch");
-                }
-
-                const data = await response.json();
-
-                setUser(data);
-                setLoading(false);
-
-            } catch (err) {
-
-                if (err.name === "AbortError") {
-                    return;
-                }
-
-                setError(err.message);
-                setLoading(false);
-            }
-        }
-        fetchUser();
-        return () => {
-            controller.abort();
-        };
-    }, [userId]);
-    return (
-        <>
-            <h1>User Selector</h1>
-            <button onClick={()=>setUserId(1)}>Aman</button>
-            <button onClick={()=>setUserId(2)}>Rahul</button>
+    if (loading) {
+        return (
+            <h1>Loading....</h1>
+        )
+    }
+    if (error.trim()!=="") {
+        return (
+            <h1>{error }</h1>
+        )
+    }
+    else return (
+        
+        <div>
+            <button onClick={() => setUserId(1)}>Aman</button>
+            <button onClick={() => setUserId(2)}>Rahul</button>
             <button onClick={() => setUserId(3)}>Amit</button>
-            
-            {loading && <p>Loading...</p>}
-            {error && <p>{error}</p>}
-            {user && !loading &&
-                <div>
-                    <h2>{user.name}</h2>
-                    <p>{ user.email}</p>
-                    <p>{ user.phone}</p>
-            </div>}
-        </>
-    )
+                <div key={data.id }>
+                    <p>{ data.name}</p>
+                    <p>{data.email }</p>
+                </div>
+    </div>
+      )
 }

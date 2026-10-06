@@ -15,10 +15,10 @@ function App() {
       {/* <Count /> */}
       {/* <Timer/> */}
       {/* <WindowSize/> */}
-      {/* <UserSelector/> */}
+      <UserSelector/>
       {/* <UserSearch/> */}
       {/* <FocusInput /> */}
-      <IncreaseOrDecrease />
+      {/* <IncreaseOrDecrease /> */}
       {/* <Previous /> */}
       {/* <StartCancelTimer /> */}
     </div>

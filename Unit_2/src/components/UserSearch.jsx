@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export default function UserSearch() {
     const [search, setSearch] = useState("");
     const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     function handleSearch(e) {
@@ -18,10 +18,6 @@ export default function UserSearch() {
                 try {
                     setLoading(true);
                     setError("");
-                    if (search.trim() === "") {
-                        setError("Empty Search");
-                        return;
-                    }
                     const response = await fetch(
                         `https://dummyjson.com/users/search?q=${search}`,
                         {
@@ -39,8 +35,14 @@ export default function UserSearch() {
                     }
                     setError(err.message);
                 } finally {
+                    if(search===this.search)
                     setLoading(false);
                 }
+            }
+            if (search.trim() === "") {
+                setUsers([]);
+                setLoading(false);
+                return;
             }
             fetchUsers();
         }, 500)
